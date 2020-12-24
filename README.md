@@ -2,7 +2,7 @@
 Lesson plan introducing Closures in JavaScript
 
 ## Recap the basic Javascript terminologies
-#### 1. Functions
+#### Functions
 A JavaScript function is a block of code designed to perform a particular task. A JavaScript function is executed when "something" invokes it (calls it).
 A JavaScript function is defined with the function keyword, followed by a name, followed by parentheses ().
 
@@ -17,7 +17,7 @@ function name(parameter1, parameter2, parameter3) {
   // code to be executed
 }
 ````
-#### 2. Variables
+#### Variables
 JavaScript variables can belong to the **local** or **global** scope. 
 ##### *Local variables*
 A **Local** variable is a function that can access all variables defined **inside** the function. See the example below:
@@ -73,22 +73,81 @@ Data privacy is essential for safely sharing code. Without it, anyone using your
 Languages like Java and C++ allow classes to have private fields. These fields cannot be accessed outside the class, enabling perfect privacy.
 JavaScript doesn't support private variables (yet), **but we can use CLOSURES!**
 
-## Closure - its purpose
+## The Grand Closure
 A closure is a function having access to the parent scope, even after the parent function has closed. 
 **Global variables** can be made local (private) with **closures**.
 
 Look at the code snippet below:
 ```` javascript
-  var add = (function () {
-  var counter = 0;
-  return function () {counter += 1; return counter}
-})();
+  function makeFunc() {
+  var name = 'Mozilla';
+  function displayName() {
+    alert(name);
+  }
+  return displayName;
+}
 
-add();
-add();
-add();
-add();
-add();
-// the counter is now 5 
+var myFunc = makeFunc(); // created the instance of makeFunc
+myFunc(); // accessing the displayName function 
+
+// the output will be an alert message box with Mozilla.
+
 ````
-The variable add is assigned to the return value of a self-invoking function. The self-invoking function only runs once. It sets the counter to zero (0), and returns a function expression. This way add becomes a function. The "*wonderful*" part is that it can access the counter in the parent scope. This is called a **JavaScript closure**. It makes it possible for a function to have "*private*" variables. The counter is protected by the scope of the anonymous function and can only be changed using the add function.
+What's different (and interesting) is that the displayName() inner function is returned from the outer function before being executed.
+It is extremely important to **return** from the outer function to take the advantage of encapsulation.
+
+## Mapping JavaScript Closure with Object Oriented Concepts:
+### 1. Closure functional scope chain
+* Objective
+* Hand-on application
+* Review
+
+### 2. Private methods with closures
+Languages such as Java/ C++ allow you to declare methods as private, meaning that they can be called only by other methods in the same class. JavaScript does not provide a native way of doing this, but it is possible to emulate private methods using closures. Private methods aren't just useful for restricting access to code. They also provide a powerful way of managing your global namespace.
+
+The following code illustrates how to use closures to define public functions that can access private functions and variables
+```` javascript
+function bankAccount() {
+	var accountBalance = 0
+      return {
+          deposit: function(amount) {
+              accountBalance += amount;
+              alert(accountBalance);
+          },
+          withdraw: function(amount) {
+              // ... safety logic
+              accountBalance -= amount;
+              alert(accountBalance);
+          }
+      };
+  }
+    
+  var myBankAccount = bankAccount(); // so initiates the accountBalance to 0 
+  myBankAccount.deposit(4000); // sets the value of accountBalance to 4000 & outputs the same in alert message
+  myBankAccount.withdraw(2000);// sets the value of accountBalance to 2000 & outputs the same in alert message
+
+````
+**NOTE**: In the above example the variable accountBalance can be accessed & its value is modified across both inner functions deposit & withdraw
+
+* Hands-on application
+Time to try yourself, 
+
+* Review
+
+### 3. Creating closures in loop
+* Objective
+* Hand-on application
+* Review
+
+## References used
+Following sites were referred:
+> https://www.w3schools.com/js/js_function_closures.asp
+
+> https://www.freecodecamp.org/news/learn-javascript-closures-in-n-minutes/
+
+> https://www.freecodecamp.org/news/javascript-closure-tutorial-with-js-closure-example-code/
+
+> https://www.tutorialsteacher.com/javascript/closure-in-javascript
+
+> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+
