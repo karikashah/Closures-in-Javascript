@@ -159,17 +159,17 @@ A common mistake is not realizing that, in the case where the outer function is 
 
 * **Hands-on application: Event Handler**
 
-Prepare a small code snippet with textbox & button. Each time when you click the button, the text updates to show the number of clicks. 
+	Prepare a small code snippet with textbox & button. Each time when you click the button, the text updates to show the number of clicks. 
 
-*Hint*: You can use the closure function specified below:
-````javascript
-let countClicked = 0;
+	*Hint*: You can use the closure function specified below:
+	````javascript
+	let countClicked = 0;
 
-myButton.addEventListener('click', function handleClick() {
-  countClicked++;
-  myText.innerText = `You clicked ${countClicked} times`;
-});
-````
+	myButton.addEventListener('click', function handleClick() {
+	  countClicked++;
+	  myText.innerText = `You clicked ${countClicked} times`;
+	});
+	````
 
 * **Review**
 
@@ -208,7 +208,8 @@ Run the code using this [JSFiddle link](http://jsfiddle.net/komgj259/1/)
 
 * **Hands-on application: **
 
-Prepare a code snippet to track of top 5 technological stocks. For each stock, maintain following information: Ticker symbol, price, earnings per share, dividend, & dividend yield. Based on the stock information, suggest the best stock to purchase & why? (*NOTE*: You can display alert/console.log giving reason to support your suggestion)    
+	Prepare a code snippet to track of top 5 technological stocks. For each stock, maintain following information: Ticker symbol, price, earnings per share, dividend, & dividend yield. 
+	Based on the stock information, suggest the best stock to purchase & why? (*NOTE*: You can display alert/console.log giving reason to support your suggestion)    
 
 * **Review**
 
@@ -248,8 +249,9 @@ One single function has been turned to a series of functions. To get the result 
 
 * **Hand-on application**
 
-You own a store and you want to give 10% discount to your fav customers who makes their purchase over $500. Create a curried discount function for the fav customer.
-Now, we have super-fav customers who makes their purchases between $500 - $10,000. We want to give 20% discount to our super-fav customers. Create a new curried discount function to handle that usecase.
+	You own a store and you want to give 10% discount to your fav customers who makes their purchase over $500. Create a curried discount function for the fav customer.
+	Now, we have super-fav customers who makes their purchases between $500 - $10,000. We want to give 20% discount to our super-fav customers. 
+	Create a new curried discount function to handle that usecase.
 
 * **Review**
 
