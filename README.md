@@ -45,6 +45,21 @@ Global variables can be used (and changed) by all scripts in the page (and in th
 * Global and local variables with the same name are different variables. Modifying one, does not modify the other.
 * Variables created without a declaration keyword **(var, let, or const)** are always **global**, even if they are created inside a function.
 
+#### Lexical Scoping
+Lexical scoping is how a parser resolves variable names when functions are nested. The word lexical refers to the fact that lexical scoping uses the location where a variable is declared within the source code to determine where that variable is available. Nested functions have access to variables declared in their outer scope. Consider the following example code:
+```` javascript
+function main() {
+  var name = 'Hello World'; // name is a local variable created by main function
+  function displayName() { // displayName() is the inner function
+    alert(name); // use variable declared in the parent function
+  }
+  displayName();
+}
+main();
+
+````
+Run the code using this [JSFiddle link](http://jsfiddle.net/2bzup8fk/1/) and notice that the alert() statement within the displayName() function successfully displays the value of the name variable, which is declared in its parent function.
+
 ## A Dilemma
 Here is the code snippet to make deposit or withdraw in the bank account. You could use a global variable, and a *function* to deposit or withdraw from the bank account. 
 
@@ -68,7 +83,7 @@ What's stopping me from inflating my balance or ruining someone else's?
  // later in the script...
  accountBalance = 'Whatever I want! :)';
 `````
-Data privacy is essential for safely sharing code. Without it, anyone using your function/library/framework can maliciously manipulate its inner variables.
+**Data privacy is essential for safely sharing code.** Without it, anyone using your function/library/framework can maliciously manipulate its inner variables.
 
 Languages like Java and C++ allow classes to have private fields. These fields cannot be accessed outside the class, enabling perfect privacy.
 JavaScript doesn't support private variables (yet), **but we can use CLOSURES!**
@@ -98,9 +113,56 @@ It is extremely important to **return** from the outer function to take the adva
 
 ## Mapping JavaScript Closure with Object Oriented Concepts:
 ### 1. Closure functional scope chain
-* Objective
+Every closure has three scopes:
+
+    Local Scope (Own scope)
+    Outer Functions Scope
+    Global Scope
+
+A common mistake is not realizing that, in the case where the outer function is itself a nested function, access to the outer function's scope includes the enclosing scope of the outer function—effectively creating a chain of function scopes. To demonstrate, consider the following example code.
+```` javascript
+  // global scope
+  let accountBalance = 0;
+  
+function bankAccount(accountName) {
+	// outer functions scope
+	alert(accountName); // alerts with message "John Charles"
+	return {
+		deposit: function(amount) {
+		accountBalance += amount;
+		alert(accountName + " " + accountBalance);
+	     },
+		withdraw: function(amount) {
+		// local scope
+		accountBalance -= amount;
+		alert(accountName + " " + accountBalance);
+	     }
+	};
+  }
+  var myBankAccount = bankAccount("John Charles"); // display alert dialog box
+  myBankAccount.deposit(2000); // should display alert box with account name & deposited amount
+````
+Run the code using this [JSFiddle link](http://jsfiddle.net/2bzup8fk/2/) and notice that the alert() statement within the deposit() function successfully displays the value of the accountName variable (declared in outer function scope) and accountBalance variable (declared in global scope).
+
 * Hand-on application
+
+**Time for Hands-on: Event Handler**
+Prepare a small code snippet with textbox & button. Each time when you click the button, the text updates to show the number of clicks. 
+
+*Hint*: You can use the closure function specified below:
+````javascript
+let countClicked = 0;
+
+myButton.addEventListener('click', function handleClick() {
+  countClicked++;
+  myText.innerText = `You clicked ${countClicked} times`;
+});
+````
+
 * Review
+
+1. Closure has 3 scopes - global, local & outer function scope
+2. It is unwise to unnecessarily create functions within other functions if closures are not needed for a particular task, as it will negatively affect script performance both in terms of processing speed and memory consumption.
 
 ### 2. Private methods with closures
 Languages such as Java/ C++ allow you to declare methods as private, meaning that they can be called only by other methods in the same class. JavaScript does not provide a native way of doing this, but it is possible to emulate private methods using closures. Private methods aren't just useful for restricting access to code. They also provide a powerful way of managing your global namespace.
@@ -130,8 +192,6 @@ function bankAccount() {
 **NOTE**: In the above example the variable accountBalance can be accessed & its value is modified across both inner functions deposit & withdraw
 
 * Hands-on application
-Time to try yourself, 
-
 * Review
 
 ### 3. Creating closures in loop
@@ -148,6 +208,8 @@ Following sites were referred:
 > https://www.freecodecamp.org/news/javascript-closure-tutorial-with-js-closure-example-code/
 
 > https://www.tutorialsteacher.com/javascript/closure-in-javascript
+
+> https://dmitripavlutin.com/simple-explanation-of-javascript-closures/
 
 > https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
 
