@@ -173,9 +173,9 @@ myButton.addEventListener('click', function handleClick() {
 
 * **Review**
 
-1. Closure has 3 scopes - global, local & outer function scope
-2. The scope is what rules the accessibility of variables in JavaScript. 
-3. The lexical scope allows a function scope to access statically the variables from the outer scopes. 
+	* Closure has 3 scopes - global, local & outer function scope
+	* The scope is what rules the accessibility of variables in JavaScript. 
+	* The lexical scope allows a function scope to access statically the variables from the outer scopes. 
 
 ### 2. Private variables & methods with closures
 Languages such as Java/ C++ allow you to declare methods as private, meaning that they can be called only by other methods in the same class. JavaScript does not provide a native way of doing this, but it is possible to emulate private methods using closures. Private methods aren't just useful for restricting access to code. They also provide a powerful way of managing your global namespace.
@@ -212,8 +212,8 @@ Prepare a code snippet to track of top 5 technological stocks. For each stock, m
 
 * **Review**
 
-1. In many object-oriented programming languages, there is a way to limit the visibility of a variable from outside its scope. The closure remembers the variables from the place where it is defined, no matter where it is executed.
-2. It is unwise to unnecessarily create functions within other functions if closures are not needed for a particular task, as it will negatively affect script performance both in terms of processing speed and memory consumption.
+	* In many object-oriented programming languages, there is a way to limit the visibility of a variable from outside its scope. The closure remembers the variables from the place where it is defined, no matter where it is executed.
+	* It is unwise to unnecessarily create functions within other functions if closures are not needed for a particular task, as it will negatively affect script performance both in terms of processing speed and memory consumption.
 
 ### 3. Currying: Functional programming
 Currying is a process in functional programming in which we can transform a function with multiple arguments into a sequence of nesting functions. It returns a new function that expects the next argument inline.
@@ -253,10 +253,10 @@ Now, we have super-fav customers who makes their purchases between $500 - $10,00
 
 * **Review**
 
-1. Closure makes currying possible in JavaScript.
-2. A curried function is a function that takes multiple (more than two) arguments one at a time.
-3. Currying happens when a function returns another function until the arguments are fully supplied. 
-4. With curried functions you get easier reuse of more abstract functions, since you get to specialize.
+	* Closure makes currying possible in JavaScript.
+	* A curried function is a function that takes multiple (more than two) arguments one at a time.
+	* Currying happens when a function returns another function until the arguments are fully supplied. 
+	* With curried functions you get easier reuse of more abstract functions, since you get to specialize.
 
 ## References used
 Following sites were referred:
