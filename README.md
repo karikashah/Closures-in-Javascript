@@ -120,13 +120,13 @@ It is extremely important to **return** from the outer function to take the adva
 
 Let us map the JavaScript Closure concept with the Object Oriented Concepts used by many popular languages like Java & C++:
 ### 1. Closure functional scope chain
-Every closure has three scopes:
+Every closure has three scope chains:
 
-    Local Scope (Own scope)
-    Outer Functions Scope
-    Global Scope
+    it has access to its *own scope* — variables defined between its curly brackets
+    it has access to the *outer function’s* variables
+    it has access to the *global* variables
 
-A common mistake is not realizing that, in the case where the outer function is itself a nested function, access to the outer function's scope includes the enclosing scope of the outer function—effectively creating a chain of function scopes. To demonstrate, consider the following example code.
+To demonstrate, consider the following example code.
 ```` javascript
   // global scope
   let accountBalance = 0;
@@ -149,7 +149,13 @@ function bankAccount(accountName) {
   var myBankAccount = bankAccount("John Charles"); // display alert dialog box
   myBankAccount.deposit(2000); // should display alert box with account name & deposited amount
 ````
-Run the code using this [JSFiddle link](http://jsfiddle.net/2bzup8fk/2/) and notice that the alert() statement within the deposit() function successfully displays the value of the accountName variable (declared in outer function scope) and accountBalance variable (declared in global scope).
+In the above example:
+1. *accountBalance* is the global variable
+2. *amount* is the local variable for *deposit()* function where as *accountName* is the outer function's variable i.e. local variable of outer function *bankAccount()* function.
+
+Run the code using this [JSFiddle link](http://jsfiddle.net/2bzup8fk/2/) and notice that the alert() statement within the *deposit()* function successfully displays the value of the *accountName* variable (declared in outer function scope) and *accountBalance* variable (declared in global scope).
+
+A common mistake is not realizing that, in the case where the outer function is itself a nested function, access to the outer function's scope includes the enclosing scope of the outer function—effectively creating a chain of function scopes.
 
 * **Hands-on application: Event Handler**
 
@@ -181,21 +187,23 @@ function bankAccount() { // outer function)
       return {
           deposit: function(amount) { // inner function
               accountBalance += amount;
-              alert(accountBalance);
+              alert('After the deposit of '+ amount + ' the balance is ' + accountBalance + '.');
           },
           withdraw: function(amount) {
               // ... safety logic
               accountBalance -= amount;
-              alert(accountBalance);
+              alert('After the withdrawal of '+ amount + ' the balance is ' + accountBalance + '.');
           }
       };
   }
     
   var myBankAccount = bankAccount(); // so initiates the accountBalance to 0 
   myBankAccount.deposit(4000); // sets the value of accountBalance to 4000 & outputs the same in alert message
-  myBankAccount.withdraw(2000);// sets the value of accountBalance to 2000 & outputs the same in alert message
+  myBankAccount.deposit(6000); // sets the value of accountBalance to 10,000 
+  myBankAccount.withdraw(2000);// sets the value of accountBalance to 8000 & outputs the same in alert message
 
 ````
+Run the code using this [JSFiddle link](http://jsfiddle.net/komgj259/1/)
 **NOTE**: In the above example the variable accountBalance can be accessed & its value can be modified by both inner functions - deposit() & withdraw()
 
 * **Hands-on application: **
@@ -204,9 +212,8 @@ Prepare a code snippet to track of top 5 technological stocks. For each stock, m
 
 * **Review**
 
-1. The closure remembers the variables from the place where it is defined, no matter where it is executed.
-2. In many object-oriented programming languages, there is a way to limit the visibility of a variable from outside its scope.
-3. It is unwise to unnecessarily create functions within other functions if closures are not needed for a particular task, as it will negatively affect script performance both in terms of processing speed and memory consumption.
+1. In many object-oriented programming languages, there is a way to limit the visibility of a variable from outside its scope. The closure remembers the variables from the place where it is defined, no matter where it is executed.
+2. It is unwise to unnecessarily create functions within other functions if closures are not needed for a particular task, as it will negatively affect script performance both in terms of processing speed and memory consumption.
 
 ### 3. Currying: Functional programming
 Currying is a process in functional programming in which we can transform a function with multiple arguments into a sequence of nesting functions. It returns a new function that expects the next argument inline.
@@ -214,14 +221,15 @@ It keeps returning a new function until all the arguments are exhausted. The arg
 
 For example:
 ````javascript
-// simple multiplication example:
+// simple multiplication example, takes in 3 arguments:
 function multiply(a, b, c) {
     return a * b * c;
 }
 
-const total = mutiply (1,2,3) // will return 6
+const total = multiply (1,2,3);
+alert(total); // will return 6
 
-// curried muplication example
+// curried multiplication example, takes one argument at a time
 function multiply(a) {
     return (b) => {
         return (c) => {
@@ -233,6 +241,7 @@ function multiply(a) {
 const total = multiply(1)(2)(3) // will return 6
 
 ````
+Run the curried code using this [JSFiddle link](http://jsfiddle.net/komgj259/2/)
 We have turned the *multiply(1,2,3)* function call to *multiply(1)(2)(3)* multiple function calls.
 
 One single function has been turned to a series of functions. To get the result of multiplication of the three numbers 1, 2 and 3, the numbers are passed one after the other, each number prefilling the next function inline for invocation.
@@ -247,6 +256,7 @@ Now, we have super-fav customers who makes their purchases between $500 - $10,00
 1. Closure makes currying possible in JavaScript.
 2. A curried function is a function that takes multiple (more than two) arguments one at a time.
 3. Currying happens when a function returns another function until the arguments are fully supplied. 
+4. With curried functions you get easier reuse of more abstract functions, since you get to specialize.
 
 ## References used
 Following sites were referred:
