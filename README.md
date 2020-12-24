@@ -121,6 +121,7 @@ It is extremely important to **return** from the outer function to take the adva
 Let us map the JavaScript Closure concept with the Object Oriented Concepts used by many popular languages like Java & C++:
 ### 1. Closure functional scope chain 
 *Time Recommendation*: 45 mins
+
 Every closure has three scope chains:
 
     it has access to its *own scope* — variables defined between its curly brackets
@@ -180,6 +181,7 @@ A common mistake is not realizing that, in the case where the outer function is 
 
 ### 2. Private variables & methods with closures
 *Time Recommendation*: 75 mins
+
 Languages such as Java/ C++ allow you to declare methods as private, meaning that they can be called only by other methods in the same class. JavaScript does not provide a native way of doing this, but it is possible to emulate private methods using closures. Private methods aren't just useful for restricting access to code. They also provide a powerful way of managing your global namespace.
 
 The following code illustrates how to use closures to define public functions (outer function) that can access private functions (inner functions) and variables
@@ -220,6 +222,7 @@ Run the code using this [JSFiddle link](http://jsfiddle.net/komgj259/1/)
 
 ### 3. Currying: Functional programming
 *Time Recommendation*: 90 mins *assuming previous concepts are well understood* 
+
 Currying is a process in functional programming in which we can transform a function with multiple arguments into a sequence of nesting functions. It returns a new function that expects the next argument inline.
 It keeps returning a new function until all the arguments are exhausted. The arguments are kept "alive"(via closure) and all are used in execution when the final function in the currying chain is returned and executed.
 
