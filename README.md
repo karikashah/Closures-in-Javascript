@@ -20,7 +20,7 @@ function name(parameter1, parameter2, parameter3) {
 #### Variables
 JavaScript variables can belong to the **local** or **global** scope. 
 ##### *Local variables*
-A **Local** variable is a function that can access all variables defined **inside** the function. See the example below:
+A **Local** variable: a function that can access all variables defined **inside** the function. See the example below:
 ```` javascript
 function myFunction() {
   var a = 4;
@@ -31,7 +31,7 @@ function myFunction() {
 A local variable can only be used inside the function where it is defined. It is hidden from other functions and other scripting code.
 
 ##### *Global variables*
-A **Global** variable is a function that can also access variables defined **outside** the function. See the example below:
+A **Global** variable: a function that can also access variables defined **outside** the function. See the example below:
 ```` javascript
 var a = 4;
 function myFunction() {
@@ -94,18 +94,18 @@ A closure is a function having access to the parent scope, even after the parent
 
 Look at the code snippet below:
 ```` javascript
-  function makeFunc() {
-  var name = 'Mozilla';
+  function main() {
+  var name = 'Hello World'; // name is a local variable created by main function
   function displayName() {
-    alert(name);
+    alert(name); // use variable declared in the parent function
   }
   return displayName;
 }
 
-var myFunc = makeFunc(); // created the instance of makeFunc
+var myFunc = main(); // created the instance of main
 myFunc(); // accessing the displayName function 
 
-// the output will be an alert message box with Mozilla.
+// the output will be an alert message box with 'Hello World'
 
 ````
 What's different (and interesting) is that the displayName() inner function is returned from the outer function before being executed.
@@ -144,9 +144,8 @@ function bankAccount(accountName) {
 ````
 Run the code using this [JSFiddle link](http://jsfiddle.net/2bzup8fk/2/) and notice that the alert() statement within the deposit() function successfully displays the value of the accountName variable (declared in outer function scope) and accountBalance variable (declared in global scope).
 
-* Hand-on application
+* **Hands-on application: Event Handler**
 
-**Time for Hands-on: Event Handler**
 Prepare a small code snippet with textbox & button. Each time when you click the button, the text updates to show the number of clicks. 
 
 *Hint*: You can use the closure function specified below:
@@ -159,20 +158,21 @@ myButton.addEventListener('click', function handleClick() {
 });
 ````
 
-* Review
+* **Review**
 
 1. Closure has 3 scopes - global, local & outer function scope
-2. It is unwise to unnecessarily create functions within other functions if closures are not needed for a particular task, as it will negatively affect script performance both in terms of processing speed and memory consumption.
+2. The scope is what rules the accessibility of variables in JavaScript. 
+3. The lexical scope allows a function scope to access statically the variables from the outer scopes. 
 
-### 2. Private methods with closures
+### 2. Private variables & methods with closures
 Languages such as Java/ C++ allow you to declare methods as private, meaning that they can be called only by other methods in the same class. JavaScript does not provide a native way of doing this, but it is possible to emulate private methods using closures. Private methods aren't just useful for restricting access to code. They also provide a powerful way of managing your global namespace.
 
-The following code illustrates how to use closures to define public functions that can access private functions and variables
+The following code illustrates how to use closures to define public functions (outer function) that can access private functions (inner functions) and variables
 ```` javascript
-function bankAccount() {
+function bankAccount() { // outer function)
 	var accountBalance = 0
       return {
-          deposit: function(amount) {
+          deposit: function(amount) { // inner function
               accountBalance += amount;
               alert(accountBalance);
           },
@@ -189,15 +189,57 @@ function bankAccount() {
   myBankAccount.withdraw(2000);// sets the value of accountBalance to 2000 & outputs the same in alert message
 
 ````
-**NOTE**: In the above example the variable accountBalance can be accessed & its value is modified across both inner functions deposit & withdraw
+**NOTE**: In the above example the variable accountBalance can be accessed & its value can be modified by both inner functions - deposit() & withdraw()
 
-* Hands-on application
-* Review
+* **Hands-on application: **
 
-### 3. Creating closures in loop
-* Objective
-* Hand-on application
-* Review
+Prepare a code snippet to track of top 5 technological stocks. For each stock, maintain following information: Ticker symbol, price, earnings per share, dividend, & dividend yield. Based on the stock information, suggest the best stock to purchase & why? (*NOTE*: You can display alert/console.log giving reason to support your suggestion)    
+
+* **Review**
+
+1. The closure remembers the variables from the place where it is defined, no matter where it is executed.
+2. In many object-oriented programming languages, there is a way to limit the visibility of a variable from outside its scope.
+3. It is unwise to unnecessarily create functions within other functions if closures are not needed for a particular task, as it will negatively affect script performance both in terms of processing speed and memory consumption.
+
+### 3. Currying: Functional programming
+Currying is a process in functional programming in which we can transform a function with multiple arguments into a sequence of nesting functions. It returns a new function that expects the next argument inline.
+It keeps returning a new function until all the arguments are exhausted. The arguments are kept "alive"(via closure) and all are used in execution when the final function in the currying chain is returned and executed.
+
+For example:
+````javascript
+// simple multiplication example:
+function multiply(a, b, c) {
+    return a * b * c;
+}
+
+const total = mutiply (1,2,3) // will return 6
+
+// curried muplication example
+function multiply(a) {
+    return (b) => {
+        return (c) => {
+            return a * b * c
+        }
+    }
+}
+
+const total = multiply(1)(2)(3) // will return 6
+
+````
+We have turned the *multiply(1,2,3)* function call to *multiply(1)(2)(3)* multiple function calls.
+
+One single function has been turned to a series of functions. To get the result of multiplication of the three numbers 1, 2 and 3, the numbers are passed one after the other, each number prefilling the next function inline for invocation.
+
+* **Hand-on application**
+
+You own a store and you want to give 10% discount to your fav customers who makes their purchase over $500. Create a curried discount function for the fav customer.
+Now, we have super-fav customers who makes their purchases between $500 - $10,000. We want to give 20% discount to our super-fav customers. Create a new curried discount function to handle that usecase.
+
+* **Review**
+
+1. Closure makes currying possible in JavaScript.
+2. A curried function is a function that takes multiple (more than two) arguments one at a time.
+3. Currying happens when a function returns another function until the arguments are fully supplied. 
 
 ## References used
 Following sites were referred:
@@ -212,4 +254,6 @@ Following sites were referred:
 > https://dmitripavlutin.com/simple-explanation-of-javascript-closures/
 
 > https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+
+> https://blog.bitsrc.io/understanding-currying-in-javascript-ceb2188c339
 
