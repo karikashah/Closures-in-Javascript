@@ -206,7 +206,7 @@ function bankAccount() { // outer function)
 Run the code using this [JSFiddle link](http://jsfiddle.net/komgj259/1/)
 **NOTE**: In the above example the variable accountBalance can be accessed & its value can be modified by both inner functions - deposit() & withdraw()
 
-* **Hands-on application: **
+* **Hands-on application: Stock Recommendation**
 
 	Prepare a code snippet to track of top 5 technological stocks. For each stock, maintain following information: Ticker symbol, price, earnings per share, dividend, & dividend yield. 
 	Based on the stock information, suggest the best stock to purchase & why? (*NOTE*: You can display alert/console.log giving reason to support your suggestion)    
@@ -247,7 +247,7 @@ We have turned the *multiply(1,2,3)* function call to *multiply(1)(2)(3)* multip
 
 One single function has been turned to a series of functions. To get the result of multiplication of the three numbers 1, 2 and 3, the numbers are passed one after the other, each number prefilling the next function inline for invocation.
 
-* **Hand-on application**
+* **Hands-on application: Customer Discount Program**
 
 	You own a store and you want to give 10% discount to your fav customers who makes their purchase over $500. Create a curried discount function for the fav customer.
 	Now, we have super-fav customers who makes their purchases between $500 - $10,000. We want to give 20% discount to our super-fav customers. 
