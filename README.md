@@ -1,7 +1,12 @@
 # Closures-in-Javascript
-Lesson plan introducing Closures in JavaScript
+Closures are important in functional programming, and are often asked during the JavaScript coding interview.
+While being used everywhere, closures are difficult to grasp. If you haven’t had your “Aha!” moment in understanding closures, then this lesson plan is right for you.
 
-## Recap the basic Javascript terminologies
+You will start with the fundamental terms: functions, variables and lexical scope. Then, after grasping the basics, you’ll enter the closures & dive into the concepts mapping with OOP (Object Oriented Programming).
+
+Before starting, I suggest you resist the urge to skip the fundamental JavaScript terms sections. These concepts are crucial to closures, and if you get them well, the idea of closure becomes self-evident. 
+
+## Fundamental JavaScript terms
 #### Functions
 A JavaScript function is a block of code designed to perform a particular task. A JavaScript function is executed when "something" invokes it (calls it).
 A JavaScript function is defined with the function keyword, followed by a name, followed by parentheses ().
@@ -109,9 +114,11 @@ myFunc(); // accessing the displayName function
 
 ````
 What's different (and interesting) is that the displayName() inner function is returned from the outer function before being executed.
-It is extremely important to **return** from the outer function to take the advantage of encapsulation.
+It is extremely important to **return** from the outer function to take the advantage of [encapsulation](https://en.wikipedia.org/wiki/Encapsulation_(computer_programming)) (referred to the bundling of data with the methods that operate on that data, or the restricting of direct access to some of an object's components).
 
-## Mapping JavaScript Closure with Object Oriented Concepts:
+## Deep dive in Closure
+
+Let us map the JavaScript Closure concept with the Object Oriented Concepts used by many popular languages like Java & C++:
 ### 1. Closure functional scope chain
 Every closure has three scopes:
 
